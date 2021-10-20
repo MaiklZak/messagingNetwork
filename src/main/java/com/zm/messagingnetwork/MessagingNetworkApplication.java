@@ -1,4 +1,4 @@
-package com.zm.messaging_network;
+package com.zm.messagingnetwork;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

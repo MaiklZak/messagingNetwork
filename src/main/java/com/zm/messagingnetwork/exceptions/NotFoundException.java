@@ -1,4 +1,4 @@
-package com.zm.messaging_network.exceptions;
+package com.zm.messagingnetwork.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

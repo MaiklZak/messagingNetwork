@@ -59,7 +59,7 @@ Vue.component('message-row', {
         '<i>({{ message.id }})</i> {{ message.text }}' +
         '<span style="position: absolute; right: 0">' +
             '<input type="button" value="Edit" @click="edit">' +
-            '<input type="button" value="X" @click="del">' +
+            '<input type="button" value="X" @click="del()">' +
         '</span>' +
         '</div>',
     methods: {
@@ -86,7 +86,7 @@ Vue.component('messages-list', {
     template: '<div style="position: relative; width: 300px;">' +
         '<message-form :messages="messages" :messageAttr="message"/>' +
         '<message-row v-for="message in messages" :key="message.id" :message="message" ' +
-        ':editMethod="editMethod :messages=messages"/>' +
+        ':editMethod="editMethod" :messages="messages"/>' +
         '</div>',
     created: function () {
         messageApi.get().then(result =>
