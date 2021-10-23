@@ -2,35 +2,45 @@
   <v-app>
     <v-app-bar app>
       <v-toolbar-title>NetWork</v-toolbar-title>
+      <v-btn text
+             class="ml-2"
+             v-if="profile"
+             :disabled="$route.path === '/'"
+             @click="showMessages">
+        Messages
+      </v-btn>
       <v-spacer></v-spacer>
-      <span v-if="profile">{{ profile.name }}</span>
+      <v-btn text
+             v-if="profile"
+             :disabled="$route.path === '/profile'"
+             @click="showProfile">
+        {{ profile.name }}
+      </v-btn>
       <v-btn v-if="profile" icon href="/logout">
         <v-icon>mdi-exit-to-app</v-icon>
       </v-btn>
     </v-app-bar>
     <v-main>
-      <v-container v-if="!profile">
-        Необходимо авторизоваться через
-        <a href="/login">Google</a>
-      </v-container>
-      <v-container v-if="profile">
-        <message-list />
-      </v-container>
+      <router-view></router-view>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
-import MessageList from "components/messages/MessageList.vue"
+import {mapState, mapMutations} from 'vuex'
 import {addHandler} from "util/ws";
 
 export default {
-  components: {
-    MessageList
-  },
   computed: mapState(['profile']),
-  methods: mapMutations(['addMessageMutation', 'updateMessageMutation', 'removeMessageMutation']),
+  methods: {
+    ...mapMutations(['addMessageMutation', 'updateMessageMutation', 'removeMessageMutation']),
+    showMessages() {
+      this.$router.push('/')
+    },
+    showProfile() {
+      this.$router.push('/profile')
+    }
+  },
   created() {
     addHandler(data => {
       if (data.objectType === 'MESSAGE') {
@@ -51,6 +61,11 @@ export default {
         console.error(`Looks like the object type is unknown "${data.objectType}"`)
       }
     })
+  },
+  beforeMount() {
+    if (!this.profile) {
+      this.$router.replace('/auth')
+    }
   }
 }
 </script>
