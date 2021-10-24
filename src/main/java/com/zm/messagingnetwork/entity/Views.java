@@ -1,4 +1,4 @@
-package com.zm.messagingnetwork.model;
+package com.zm.messagingnetwork.entity;
 
 public final class Views {
 
@@ -6,5 +6,5 @@ public final class Views {
 
     public interface IdName extends Id {}
 
-    public interface FullMessage extends Id {}
+    public interface FullMessage extends IdName {}
 }

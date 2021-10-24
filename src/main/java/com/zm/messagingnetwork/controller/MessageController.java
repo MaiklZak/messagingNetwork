@@ -4,8 +4,9 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.zm.messagingnetwork.dto.EventType;
 import com.zm.messagingnetwork.dto.MetaDto;
 import com.zm.messagingnetwork.dto.ObjectType;
-import com.zm.messagingnetwork.model.Message;
-import com.zm.messagingnetwork.model.Views;
+import com.zm.messagingnetwork.entity.Message;
+import com.zm.messagingnetwork.entity.User;
+import com.zm.messagingnetwork.entity.Views;
 import com.zm.messagingnetwork.repository.MessageRepository;
 import com.zm.messagingnetwork.util.WsSender;
 import org.jsoup.Jsoup;
@@ -13,6 +14,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.BeanUtils;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -27,7 +29,7 @@ import java.util.regex.Pattern;
 public class MessageController {
 
     private static String URL_PATTERN = "https?:\\/\\/?[\\w\\d\\._\\-%\\/\\?=&#]+";
-        private static String IMAGE_PATTERN = "\\.(jpeg|jpg|gif|png)$";
+    private static String IMAGE_PATTERN = "\\.(jpeg|jpg|gif|png)$";
 
     private static Pattern URL_REGEX = Pattern.compile(URL_PATTERN, Pattern.CASE_INSENSITIVE);
     private static Pattern IMAGE_REGEX = Pattern.compile(IMAGE_PATTERN, Pattern.CASE_INSENSITIVE);
@@ -54,9 +56,11 @@ public class MessageController {
     }
 
     @PostMapping
-    public Message create(@RequestBody Message message) throws IOException {
+    public Message create(@RequestBody Message message,
+                          @AuthenticationPrincipal User user) throws IOException {
         message.setCreationDate(LocalDateTime.now());
         fillMeta(message);
+        message.setAuthor(user);
         Message updatedMessage = messageRepository.save(message);
 
         wsSender.accept(EventType.CREATE, updatedMessage);

@@ -2,7 +2,7 @@ package com.zm.messagingnetwork.dto;
 
 import com.fasterxml.jackson.annotation.JsonRawValue;
 import com.fasterxml.jackson.annotation.JsonView;
-import com.zm.messagingnetwork.model.Views;
+import com.zm.messagingnetwork.entity.Views;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

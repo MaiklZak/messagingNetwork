@@ -1,6 +1,6 @@
 package com.zm.messagingnetwork.config;
 
-import com.zm.messagingnetwork.model.User;
+import com.zm.messagingnetwork.entity.User;
 import com.zm.messagingnetwork.repository.UserDetailsRepository;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.PrincipalExtractor;
