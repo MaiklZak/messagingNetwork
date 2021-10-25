@@ -8,6 +8,7 @@ import com.zm.messagingnetwork.entity.Views;
 import com.zm.messagingnetwork.repository.CommentRepository;
 import com.zm.messagingnetwork.util.WsSender;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.function.BiConsumer;
 

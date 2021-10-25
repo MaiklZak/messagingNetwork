@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.zm.messagingnetwork.dto.MessagePageDto;
 import com.zm.messagingnetwork.entity.User;
 import com.zm.messagingnetwork.entity.Views;
-import com.zm.messagingnetwork.repository.MessageRepository;
+import com.zm.messagingnetwork.repository.UserDetailsRepository;
 import com.zm.messagingnetwork.service.MessageService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
@@ -25,18 +25,25 @@ import java.util.Map;
 public class MainController {
 
     private final MessageService messageService;
-    private final ObjectWriter writer;
+    private final UserDetailsRepository userDetailsRepository;
+    private final ObjectWriter messageWriter;
+    private final ObjectWriter profileWriter;
 
 
     @Value("${spring.profile.active}")
     private String profile;
 
-    public MainController(MessageService messageService, ObjectMapper objectMapper) {
+    public MainController(MessageService messageService, UserDetailsRepository userDetailsRepository, ObjectMapper objectMapper) {
         this.messageService = messageService;
+        this.userDetailsRepository = userDetailsRepository;
 
-        this.writer = objectMapper
-                .setConfig(objectMapper.getSerializationConfig())
+        ObjectMapper mapper = objectMapper
+                .setConfig(objectMapper.getSerializationConfig());
+
+        this.messageWriter = mapper
                 .writerWithView(Views.FullMessage.class);
+        this.profileWriter = mapper
+                .writerWithView(Views.FullProfile.class);
     }
 
     @GetMapping
@@ -44,19 +51,22 @@ public class MainController {
         Map<Object, Object> data = new HashMap<>();
 
         if (user != null) {
-            data.put("profile", user);
+            User userFromDb = userDetailsRepository.findById(user.getId()).get();
+            String serializedProfile = profileWriter.writeValueAsString(userFromDb);
+            model.addAttribute("profile", serializedProfile);
 
             Sort sort = Sort.by(Sort.Direction.DESC, "id");
             PageRequest pageRequest = PageRequest.of(0, MessageController.MESSAGE_PER_PAGE, sort);
             MessagePageDto messagePageDto = messageService.findAll(pageRequest);
 
-            String message = writer.writeValueAsString(messagePageDto.getMessages());
+            String message = messageWriter.writeValueAsString(messagePageDto.getMessages());
 
             model.addAttribute("messages", message);
             data.put("currentPage", messagePageDto.getCurrentPage());
             data.put("totalPages", messagePageDto.getTotalPages());
         } else {
             model.addAttribute("messages", "[]");
+            model.addAttribute("profile", "null");
         }
 
         model.addAttribute("frontendData", data);
