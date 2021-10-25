@@ -38,7 +38,7 @@ public class Message {
     @JsonView(Views.FullMessage.class)
     private User author;
 
-    @OneToMany(mappedBy = "message", orphanRemoval = true)
+    @OneToMany(mappedBy = "message", cascade = CascadeType.ALL)
     @JsonView(Views.FullMessage.class)
     private List<Comment> comments;
 
