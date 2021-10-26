@@ -24,6 +24,7 @@ dependencies {
 	implementation('org.jsoup:jsoup:1.11.3')
 	compileOnly('org.projectlombok:lombok')
 	annotationProcessor('org.projectlombok:lombok')
+	implementation 'io.sentry:sentry-spring:1.7.30'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 

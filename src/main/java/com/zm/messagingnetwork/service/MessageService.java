@@ -15,7 +15,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -46,7 +45,7 @@ public class MessageService {
                           WsSender wsSender) {
         this.messageRepository = messageRepository;
         this.userSubscriptionRepository = userSubscriptionRepository;
-        this.wsSender = wsSender.getSender(ObjectType.MESSAGE, Views.IdName.class);
+        this.wsSender = wsSender.getSender(ObjectType.MESSAGE, Views.FullMessage.class);
     }
 
     private void fillMeta(Message message) throws IOException {
@@ -95,12 +94,13 @@ public class MessageService {
     }
 
     public Message update(Message messageFromDb, Message message, User user) throws IOException {
-        BeanUtils.copyProperties(message, messageFromDb, "id");
+        messageFromDb.setText(message.getText());
         fillMeta(messageFromDb);
         messageFromDb.setAuthor(user);
         Message updatedMessage = messageRepository.save(messageFromDb);
 
         wsSender.accept(EventType.UPDATE, updatedMessage);
+
         return updatedMessage;
     }
 
