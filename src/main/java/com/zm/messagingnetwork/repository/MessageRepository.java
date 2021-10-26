@@ -1,6 +1,7 @@
 package com.zm.messagingnetwork.repository;
 
 import com.zm.messagingnetwork.entity.Message;
+import com.zm.messagingnetwork.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
@@ -14,5 +15,5 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
 
 
     @EntityGraph(attributePaths = {"comments"})
-    Page<Message> findAll(Pageable pageable);
+    Page<Message> findByAuthorIn(List<User> users, Pageable pageable);
 }
