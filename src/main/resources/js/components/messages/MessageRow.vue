@@ -9,7 +9,7 @@
         {{ message.text }}
       </div>
     </v-card-text>
-<!--    <media v-if="message.link" :message="message"></media>-->
+    <media v-if="message.link" :message="message"></media>
       <v-card-actions>
         <v-btn value="Edit" @click="edit" small text rounded>Edit</v-btn>
         <v-btn icon @click="del" small>

@@ -10,8 +10,9 @@ export default {
   mounted() {
     window.onscroll = () => {
       const el = document.documentElement
-      const isBottomOfScreen = el.scrollTop + window.innerHeight > el.offsetHeight - 10
-      // let isBottomOfScreen= (window.innerHeight + window.pageYOffset) >= document.body.offsetHeight - 2
+      // const isBottomOfScreen = el.scrollTop + window.innerHeight > el.offsetHeight - 10
+      let isBottomOfScreen= (window.innerHeight + window.pageYOffset) >= document.body.offsetHeight - 2
+
       if (isBottomOfScreen) {
         this.loadPageAction()
       }

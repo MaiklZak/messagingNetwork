@@ -30,7 +30,7 @@ public class MainController {
     private final ObjectWriter profileWriter;
 
 
-    @Value("${spring.profile.active}")
+    @Value("${spring.profile.active:prod}")
     private String profile;
 
     public MainController(MessageService messageService, UserDetailsRepository userDetailsRepository, ObjectMapper objectMapper) {
