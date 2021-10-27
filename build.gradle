@@ -9,7 +9,8 @@ apply plugin: 'com.github.node-gradle.node'
 
 group = 'com.zm'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+sourceCompatibility = 1.8
+
 
 task buildFront(type: YarnTask) {
     args = ['build']
@@ -21,6 +22,10 @@ processResources.dependsOn(buildFront)
 
 repositories {
     mavenCentral()
+}
+
+node {
+    download = true
 }
 
 dependencies {

@@ -1,0 +1,42 @@
+{
+  "name": "messagingNetwork",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/MaiklZak/messagingNetwork",
+  "author": "maiklzak <maiklzak@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "webpack-dev-server --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.12.1",
+    "@sentry/browser": "^6.13.3",
+    "@sentry/integrations": "^6.13.3",
+    "@sentry/tracing": "^6.13.3",
+    "@sentry/utils": "^6.13.3",
+    "@sentry/vue": "^6.13.3",
+    "@stomp/stompjs": "^6.1.2",
+    "sockjs-client": "^1.5.2",
+    "vue": "^2.6.14",
+    "vue-resource": "^1.5.3",
+    "vue-router": "^3.5.2",
+    "vuetify": "^2.5.10",
+    "vuex": "^3.6.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.15.8",
+    "@babel/preset-env": "^7.15.8",
+    "babel-loader": "^8.2.3",
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "1.0.1",
+    "style-loader": "^3.3.1",
+    "vue-loader": "^15.4.1",
+    "vue-style-loader": "^4.1.2",
+    "vue-template-compiler": "^2.6.14",
+    "webpack": "^5.59.1",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.3.1",
+    "webpack-merge": "^5.8.0"
+  }
+}
