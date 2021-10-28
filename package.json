@@ -6,8 +6,8 @@
   "author": "maiklzak <maiklzak@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "webpack-dev-server --config webpack.dev.js",
-    "build": "webpack --config webpack.prod.js"
+    "start": "SET NODE_OPTIONS=--openssl-legacy-provider && webpack-dev-server --config webpack.dev.js",
+    "build": "SET NODE_OPTIONS=--openssl-legacy-provider && webpack --config webpack.prod.js"
   },
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
