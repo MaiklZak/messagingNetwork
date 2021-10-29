@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -15,6 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import java.io.Serializable;
 
+@ApiModel(description = "data model of user subscription entity")
 @Entity
 @Data
 @EqualsAndHashCode(of = "id")
@@ -22,10 +25,12 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class UserSubscription implements Serializable {
 
+    @ApiModelProperty(value = "user id")
     @EmbeddedId
     @JsonIgnore
     private UserSubscriptionId id;
 
+    @ApiModelProperty(value = "user subscription")
     @MapsId("channelId")
     @ManyToOne
     @JsonView(Views.IdName.class)
@@ -35,6 +40,7 @@ public class UserSubscription implements Serializable {
     )
     private User channel;
 
+    @ApiModelProperty(value = "user subscriber")
     @MapsId("subscriberId")
     @ManyToOne
     @JsonView(Views.IdName.class)
@@ -44,6 +50,7 @@ public class UserSubscription implements Serializable {
     )
     private User subscriber;
 
+    @ApiModelProperty(value = "is subscription active")
     @JsonView(Views.IdName.class)
     private boolean active;
 

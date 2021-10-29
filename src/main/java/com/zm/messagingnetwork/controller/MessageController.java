@@ -6,6 +6,7 @@ import com.zm.messagingnetwork.entity.Message;
 import com.zm.messagingnetwork.entity.User;
 import com.zm.messagingnetwork.entity.Views;
 import com.zm.messagingnetwork.service.MessageService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -16,6 +17,7 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("message")
+@Tag(name = "message-controller", description = "The Message API")
 public class MessageController {
 
     public static final int MESSAGE_PER_PAGE = 3;

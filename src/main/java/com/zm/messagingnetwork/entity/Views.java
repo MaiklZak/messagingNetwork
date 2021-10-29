@@ -1,5 +1,8 @@
 package com.zm.messagingnetwork.entity;
 
+import io.swagger.annotations.ApiModel;
+
+@ApiModel(description = "service class")
 public final class Views {
 
     public interface Id {}
